@@ -1,7 +1,5 @@
-/*
- * Public API Surface of phone-utils
- */
-
-export * from './lib/phone-utils.service';
-export * from './lib/phone-utils.component';
-export * from './lib/phone-utils.module';
+export * from './lib/directives/phone-format.directive';
+export * from './lib/pipes/phone-format.pipe';
+export * from './lib/services/phone-number.service';
+export * from './lib/validators/phone-validator';
+export * from './lib/modules/phone-utils.module';
