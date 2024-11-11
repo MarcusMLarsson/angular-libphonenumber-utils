@@ -1,0 +1,46 @@
+# Node modules for workspace and all sub-projects
+node_modules/
+
+# Build output directories for workspace and all sub-projects
+dist/
+build/
+
+# Angular cache
+.angular/
+
+# Temporary files and lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE settings
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# macOS System files
+*.DS_Store
+
+# Compiled output files
+*.js
+*.js.map
+*.d.ts
+
+# Coverage directory for tests
+coverage/
+
+# Miscellaneous
+.sass-cache/
+connect.lock
+libpeerconnection.log
+testem.log
+typings/
+tmp/
