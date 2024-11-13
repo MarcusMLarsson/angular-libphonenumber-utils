@@ -5,20 +5,14 @@ import {
   PhoneNumberFormat,
   RegionCode,
 } from 'google-libphonenumber';
+import { localeToCountryCode } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PhoneNumberService {
   private phoneUtil = PhoneNumberUtil.getInstance();
-
-  // Maps Angular's LOCALE_ID values (BCP 47 language tags) to ISO 3166-1 alpha-2 country codes,
-  // allowing compatibility with google-libphonenumber for region-specific formatting and validation.
-  private readonly localeToCountryCode: { [key: string]: string } = {
-    sv: 'SE',
-    fi: 'FI',
-    // Add more mappings as needed
-  };
+  private readonly localeToCountryCode = localeToCountryCode;
 
   constructor(@Inject(LOCALE_ID) private locale: string) {}
 
@@ -34,7 +28,7 @@ export class PhoneNumberService {
    * Get the ISO 3166-1 alpha-2 country code from the locale.
    */
   public getCountryCode(): string {
-    return this.localeToCountryCode[this.locale] || 'SE';
+    return this.localeToCountryCode[this.locale] || this.locale;
   }
 
   /**

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PhoneNumberFormat } from 'google-libphonenumber';
 import { PhoneNumberService } from '../services/phone-number.service';
 
-@Pipe({ name: 'phoneNumber' })
+@Pipe({ name: 'phoneNumber', pure: false })
 export class PhoneNumberPipe implements PipeTransform {
   constructor(private phoneNumberService: PhoneNumberService) {}
 
@@ -24,7 +24,7 @@ export class PhoneNumberPipe implements PipeTransform {
    */
   transform(
     phoneValue: number | string,
-    format: 'national' | 'international' = 'national'
+    format: 'national' | 'international' | 'e164' | 'rfc3966' = 'national'
   ): any {
     try {
       const phoneNumber = this.phoneNumberService.parsePhoneNumber(
@@ -40,6 +40,16 @@ export class PhoneNumberPipe implements PipeTransform {
           return this.phoneNumberService.formatPhoneNumber(
             phoneNumber,
             PhoneNumberFormat.INTERNATIONAL
+          );
+        case 'e164':
+          return this.phoneNumberService.formatPhoneNumber(
+            phoneNumber,
+            PhoneNumberFormat.E164
+          );
+        case 'rfc3966':
+          return this.phoneNumberService.formatPhoneNumber(
+            phoneNumber,
+            PhoneNumberFormat.RFC3966
           );
         default:
           return this.phoneNumberService.formatPhoneNumber(
