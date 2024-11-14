@@ -1,0 +1,34 @@
+<div>
+  <h1>Directive demo</h1>
+
+  <p>
+    <label for="region-select">Select Region:</label> <br />
+    <select
+      id="region-select"
+      [(ngModel)]="selectedRegion"
+      (change)="updateFormattedPhoneNumber()"
+    >
+      <option
+        *ngFor="let region of countryDropdownOptions"
+        [value]="region.value"
+      >
+        {{ region.label }}
+      </option>
+    </select>
+  </p>
+
+  <p>
+    <!-- Input field for typing phone number -->
+    <label for="phone-number-input">Enter Phone Number:</label>
+    <br />
+  </p>
+
+  <p>
+    <!--      formControlName="phone"-->
+    <input
+      czPhoneNumberDirective
+      class="form-control partial-required"
+      type="text"
+    />
+  </p>
+</div>

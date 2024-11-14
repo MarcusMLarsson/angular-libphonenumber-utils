@@ -1,0 +1,50 @@
+<div>
+  <h1>Pipe demo</h1>
+  <p>
+    <label for="region-select">Select Region:</label> <br />
+    <select
+      id="region-select"
+      [(ngModel)]="selectedRegion"
+      (change)="updateFormattedPhoneNumber()"
+    >
+      <option
+        *ngFor="let region of countryDropdownOptions"
+        [value]="region.value"
+      >
+        {{ region.label }}
+      </option>
+    </select>
+  </p>
+
+  <p>
+    <!-- Input field for typing phone number -->
+    <label for="phone-number-input">Enter Phone Number:</label>
+    <br />
+    <input
+      id="phone-number-input"
+      type="text"
+      [(ngModel)]="phoneNumber"
+      (input)="updateFormattedPhoneNumber()"
+    />
+  </p>
+
+  <p>
+    International format:
+    {{ phoneNumber | phoneNumber : "international" }}
+  </p>
+
+  <p>
+    National format:
+    {{ phoneNumber | phoneNumber : "national" }}
+  </p>
+
+  <p>
+    E164 Format:
+    {{ phoneNumber | phoneNumber : "e164" }}
+  </p>
+
+  <p>
+    RFC3966 format:
+    {{ phoneNumber | phoneNumber : "rfc3966" }}
+  </p>
+</div>
