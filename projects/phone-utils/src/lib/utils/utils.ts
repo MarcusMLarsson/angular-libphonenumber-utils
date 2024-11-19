@@ -1,7 +1,9 @@
 // Maps Angular's LOCALE_ID values (BCP 47 language tags) to ISO 3166-1 alpha-2 country codes,
 // allowing compatibility with google-libphonenumber for region-specific formatting and validation.
 
-export const localeToCountryCode: { [key: string]: string } = {
+import { RegionCode } from 'google-libphonenumber';
+
+export const localeToCountryCode: { [key: string]: RegionCode } = {
   'en-AC': 'SH', // Ascension Island
   'ca-AD': 'AD', // Andorra
   'ar-AE': 'AE', // United Arab Emirates

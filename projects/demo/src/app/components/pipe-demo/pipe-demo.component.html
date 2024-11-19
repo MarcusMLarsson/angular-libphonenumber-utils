@@ -2,11 +2,7 @@
   <h1>Pipe demo</h1>
   <p>
     <label for="region-select">Select Region:</label> <br />
-    <select
-      id="region-select"
-      [(ngModel)]="selectedRegion"
-      (change)="updateFormattedPhoneNumber()"
-    >
+    <select id="region-select" [(ngModel)]="regionCode">
       <option
         *ngFor="let region of countryDropdownOptions"
         [value]="region.value"
@@ -17,34 +13,28 @@
   </p>
 
   <p>
-    <!-- Input field for typing phone number -->
     <label for="phone-number-input">Enter Phone Number:</label>
     <br />
-    <input
-      id="phone-number-input"
-      type="text"
-      [(ngModel)]="phoneNumber"
-      (input)="updateFormattedPhoneNumber()"
-    />
+    <input id="phone-number-input" type="text" [(ngModel)]="phoneNumber" />
   </p>
 
   <p>
     International format:
-    {{ phoneNumber | phoneNumber : "international" }}
+    {{ phoneNumber | phoneNumber : "international" : regionCode }}
   </p>
 
   <p>
     National format:
-    {{ phoneNumber | phoneNumber : "national" }}
+    {{ phoneNumber | phoneNumber : "national" : regionCode }}
   </p>
 
   <p>
     E164 Format:
-    {{ phoneNumber | phoneNumber : "e164" }}
+    {{ phoneNumber | phoneNumber : "e164" : regionCode }}
   </p>
 
   <p>
     RFC3966 format:
-    {{ phoneNumber | phoneNumber : "rfc3966" }}
+    {{ phoneNumber | phoneNumber : "rfc3966" : regionCode }}
   </p>
 </div>

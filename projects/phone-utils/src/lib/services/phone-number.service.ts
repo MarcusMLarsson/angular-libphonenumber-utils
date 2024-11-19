@@ -21,14 +21,15 @@ export class PhoneNumberService {
    * @param newLocale The new locale to set
    */
   public setLocale(newLocale: string): void {
-    this.locale = newLocale;
+    //this.locale = newLocale;
   }
 
-  /**
-   * Get the ISO 3166-1 alpha-2 country code from the locale.
-   */
-  public getCountryCode(): string {
-    return this.localeToCountryCode[this.locale] || this.locale;
+  getDefaultRegionCode(): RegionCode {
+    const browserLocale = navigator.language || 'en-US';
+    const regionCodeFromBrowser = browserLocale.split('-')[1]?.toUpperCase();
+    const regionCodeFromLocaleId = this.localeToCountryCode[this.locale];
+
+    return regionCodeFromLocaleId || regionCodeFromBrowser;
   }
 
   /**
@@ -44,9 +45,11 @@ export class PhoneNumberService {
    * @param phoneNumberString The phone number as a string
    * @returns Parsed PhoneNumber object
    */
-  parsePhoneNumber(phoneNumberString: string): PhoneNumber {
-    const countryCode = this.getCountryCode();
-    return this.phoneUtil.parse(phoneNumberString, countryCode);
+  parsePhoneNumber(
+    phoneNumberString: string,
+    regionCode: RegionCode
+  ): PhoneNumber {
+    return this.phoneUtil.parse(phoneNumberString, regionCode);
   }
 
   /**
@@ -76,13 +79,13 @@ export class PhoneNumberService {
    * @param phoneNumberString The phone number as a string
    * @returns True if the number is valid, false otherwise
    */
-  isValidNumberForRegion(phoneNumberString: string): boolean {
+  isValidNumberForRegion(
+    phoneNumberString: string,
+    regionCode: RegionCode
+  ): boolean {
     try {
-      const phoneNumber = this.parsePhoneNumber(phoneNumberString);
-      return this.phoneUtil.isValidNumberForRegion(
-        phoneNumber,
-        this.getCountryCode()
-      );
+      const phoneNumber = this.parsePhoneNumber(phoneNumberString, regionCode);
+      return this.phoneUtil.isValidNumberForRegion(phoneNumber, regionCode);
     } catch (error) {
       return false;
     }
@@ -104,10 +107,12 @@ export class PhoneNumberService {
    * @param phoneNumberString The phone number as a string
    * @returns The national significant number as a string, or null if parsing fails
    */
-  getNationalSignificantNumber(phoneNumberString: string): string | null {
+  getNationalSignificantNumber(
+    phoneNumberString: string,
+    regionCode: RegionCode
+  ): string | null {
     try {
-      const countryCode = this.getCountryCode();
-      const phoneNumber = this.phoneUtil.parse(phoneNumberString, countryCode);
+      const phoneNumber = this.phoneUtil.parse(phoneNumberString, regionCode);
       return this.phoneUtil.getNationalSignificantNumber(phoneNumber);
     } catch (error) {
       console.error('Error parsing phone number:', error);
@@ -120,8 +125,10 @@ export class PhoneNumberService {
    * @param phoneNumberString The phone number as a string.
    * @returns Parsed PhoneNumber object with the raw input retained.
    */
-  parseAndKeepRawInput(phoneNumberString: string): PhoneNumber {
-    const countryCode = this.getCountryCode();
-    return this.phoneUtil.parseAndKeepRawInput(phoneNumberString, countryCode);
+  parseAndKeepRawInput(
+    phoneNumberString: string,
+    regionCode: RegionCode
+  ): PhoneNumber {
+    return this.phoneUtil.parseAndKeepRawInput(phoneNumberString, regionCode);
   }
 }

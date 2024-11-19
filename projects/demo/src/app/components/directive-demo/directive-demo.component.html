@@ -3,11 +3,7 @@
 
   <p>
     <label for="region-select">Select Region:</label> <br />
-    <select
-      id="region-select"
-      [(ngModel)]="selectedRegion"
-      (change)="updateFormattedPhoneNumber()"
-    >
+    <select id="region-select" [(ngModel)]="regionCode">
       <option
         *ngFor="let region of countryDropdownOptions"
         [value]="region.value"
@@ -27,6 +23,7 @@
     <!--      formControlName="phone"-->
     <input
       czPhoneNumberDirective
+      [regionCode]="regionCode"
       class="form-control partial-required"
       type="text"
     />

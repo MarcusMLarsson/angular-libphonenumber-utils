@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { PhoneNumberUtil } from 'google-libphonenumber';
+import { PhoneNumberUtil, RegionCode } from 'google-libphonenumber';
 import { PhoneNumberService } from '../services/phone-number.service';
 
 /**
@@ -18,9 +18,13 @@ import { PhoneNumberService } from '../services/phone-number.service';
  * ```
  */
 export function phoneNumberValidator(
-  phoneNumberService: PhoneNumberService
+  phoneNumberService: PhoneNumberService,
+  regionCode?: RegionCode
 ): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
+    const effectiveRegionCode =
+      regionCode ?? phoneNumberService.getDefaultRegionCode();
+
     const phoneNumberInput = control.value;
     const ValidationEnum = PhoneNumberUtil.ValidationResult;
 
@@ -30,8 +34,10 @@ export function phoneNumberValidator(
     }
 
     try {
-      const phoneNumber =
-        phoneNumberService.parseAndKeepRawInput(phoneNumberInput);
+      const phoneNumber = phoneNumberService.parseAndKeepRawInput(
+        phoneNumberInput,
+        effectiveRegionCode
+      );
       const validationResult =
         phoneNumberService.isPossibleNumberWithReason(phoneNumber);
 

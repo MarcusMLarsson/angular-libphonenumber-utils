@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PhoneNumberService } from 'phone-utils';
 import { countryDropdownOptions } from 'phone-utils';
+import { RegionCode } from 'google-libphonenumber';
 
 @Component({
   selector: 'app-directive-demo',
@@ -10,16 +11,13 @@ import { countryDropdownOptions } from 'phone-utils';
 export class DirectiveDemoComponent {
   phoneNumber = '0703359321';
   supportedRegions: string[] = [];
-  selectedRegion = this.phoneNumberService.getCountryCode();
+  regionCode!: RegionCode;
+
   countryDropdownOptions = countryDropdownOptions;
 
   constructor(private phoneNumberService: PhoneNumberService) {}
 
   ngOnInit(): void {
     this.supportedRegions = this.phoneNumberService.getSupportedRegions();
-  }
-
-  updateFormattedPhoneNumber(): void {
-    this.phoneNumberService.setLocale(this.selectedRegion);
   }
 }

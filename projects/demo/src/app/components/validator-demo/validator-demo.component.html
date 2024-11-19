@@ -1,1 +1,50 @@
-<p>validator-demo works!</p>
+<form [formGroup]="phoneForm">
+  <div>
+    <label for="phoneNumber">Phone Number:</label>
+    <input id="phoneNumber" formControlName="phoneNumber" />
+
+    <div
+      *ngIf="
+        phoneForm.controls['phoneNumber'].invalid &&
+        phoneForm.controls['phoneNumber'].touched
+      "
+    >
+      <small *ngIf="phoneForm.controls['phoneNumber'].hasError('required')">
+        Phone number is required.
+      </small>
+      <small
+        *ngIf="phoneForm.controls['phoneNumber'].hasError('invalidCountryCode')"
+      >
+        Invalid country code.
+      </small>
+      <small *ngIf="phoneForm.controls['phoneNumber'].hasError('tooShort')">
+        Phone number is too short.
+      </small>
+      <small *ngIf="phoneForm.controls['phoneNumber'].hasError('tooLong')">
+        Phone number is too long.
+      </small>
+      <small
+        *ngIf="phoneForm.controls['phoneNumber'].hasError('phoneNumberInvalid')"
+      >
+        Phone number is invalid.
+      </small>
+    </div>
+  </div>
+
+  <!-- Region selection dropdown -->
+  <p>
+    <label for="region-select">Select Region:</label><br />
+    <select
+      id="region-select"
+      formControlName="regionCode"
+      (change)="onRegionChange()"
+    >
+      <option
+        *ngFor="let region of countryDropdownOptions"
+        [value]="region.value"
+      >
+        {{ region.label }}
+      </option>
+    </select>
+  </p>
+</form>
