@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegionCode } from 'google-libphonenumber';
 import { PhoneNumberService, phoneNumberValidator } from 'phone-utils';
+import { countryDropdownOptions } from 'phone-utils';
 
 @Component({
   selector: 'app-validator-demo',
@@ -12,7 +13,7 @@ export class ValidatorDemoComponent implements OnInit {
   phoneForm!: FormGroup;
   regionCode!: RegionCode;
   supportedRegions: RegionCode[] = [];
-  countryDropdownOptions: { label: string; value: RegionCode }[] = [];
+  countryDropdownOptions = countryDropdownOptions;
 
   constructor(
     private fb: FormBuilder,
@@ -22,10 +23,6 @@ export class ValidatorDemoComponent implements OnInit {
   ngOnInit(): void {
     // Fetch supported regions (adjust this to match how you get the supported regions)
     this.supportedRegions = this.phoneNumberService.getSupportedRegions();
-    this.countryDropdownOptions = this.supportedRegions.map((region) => ({
-      label: region,
-      value: region,
-    }));
 
     // Initialize the form
     this.phoneForm = this.fb.group({
@@ -36,7 +33,7 @@ export class ValidatorDemoComponent implements OnInit {
           phoneNumberValidator(this.phoneNumberService, this.regionCode),
         ],
       ],
-      regionCode: ['US'], // Default region code
+      regionCode: ['US'],
     });
   }
 
@@ -44,6 +41,7 @@ export class ValidatorDemoComponent implements OnInit {
   onRegionChange(): void {
     const region = this.phoneForm.get('regionCode')?.value;
     this.regionCode = region;
+    console.log(this.regionCode);
     // Update the validator when the region code is changed
     this.phoneForm.controls['phoneNumber'].setValidators([
       Validators.required,

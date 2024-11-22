@@ -1,0 +1,97 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #4a90e2;
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.form-section {
+  margin: 15px 0;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 1em;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+select:focus,
+input:focus {
+  outline: none;
+}
+
+.output-section {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f0f4f8; /* Light background for contrast */
+  border: 1px solid #d1e3f1; /* Subtle border */
+  border-radius: 8px;
+}
+
+.output-section p {
+  font-size: 1.1em;
+  margin: 10px 0; /* Add more spacing */
+  padding: 10px;
+  background-color: #fff; /* White background for each format */
+  border-left: 5px solid #4a90e2; /* Accent border */
+  border-radius: 5px;
+  color: #333; /* Dark text for readability */
+}
+
+.output-section strong {
+  color: #4a90e2; /* Match your theme color */
+}
+
+.output-section p:hover {
+  background-color: #e8f0fe; /* Highlight on hover */
+  transition: background-color 0.3s ease;
+}
+
+.code-section {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+pre {
+  background-color: #282c34;
+  color: #abb2bf;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace;
+}

@@ -11,7 +11,7 @@ import { RegionCode } from 'google-libphonenumber';
 export class PipeDemoComponent {
   phoneNumber = '0703359321';
   supportedRegions: RegionCode[] = [];
-  regionCode!: RegionCode;
+  regionCode: RegionCode = 'SE';
   countryDropdownOptions = countryDropdownOptions;
 
   constructor(private phoneNumberService: PhoneNumberService) {}

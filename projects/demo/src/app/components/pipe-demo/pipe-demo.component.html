@@ -1,6 +1,13 @@
-<div>
-  <h1>Pipe demo</h1>
-  <p>
+<div class="container">
+  <h1>Locale-Based Phone Number Formatting</h1>
+
+  <p class="description">
+    This demo showcases an Angular pipe that formats phone numbers using
+    google-libphonenumber. Select a region, enter a phone number, and see it
+    formatted in various styles based on the selected locale.
+  </p>
+
+  <div class="form-section">
     <label for="region-select">Select Region:</label> <br />
     <select id="region-select" [(ngModel)]="regionCode">
       <option
@@ -10,31 +17,73 @@
         {{ region.label }}
       </option>
     </select>
-  </p>
+  </div>
 
-  <p>
-    <label for="phone-number-input">Enter Phone Number:</label>
-    <br />
+  <div class="form-section">
+    <label for="phone-number-input">Enter Phone Number:</label> <br />
     <input id="phone-number-input" type="text" [(ngModel)]="phoneNumber" />
-  </p>
+  </div>
 
-  <p>
-    International format:
-    {{ phoneNumber | phoneNumber : "international" : regionCode }}
-  </p>
+  <div class="output-section">
+    <p>
+      <strong
+        title="Displays the number with country code and spaces for readability. Example: +46 70 123 4567"
+        >International format:</strong
+      >
+      {{ phoneNumber | phoneNumber : "international" : regionCode }}
+    </p>
+    <p>
+      <strong
+        title="Formats the number based on local conventions. Example: 070 123 4567"
+        >National format:</strong
+      >
+      {{ phoneNumber | phoneNumber : "national" : regionCode }}
+    </p>
+    <p>
+      <strong
+        title="A global standard with the country code. Example: +46701234567"
+        >E164 format:</strong
+      >
+      {{ phoneNumber | phoneNumber : "e164" : regionCode }}
+    </p>
+    <p>
+      <strong
+        title="URI format used in VoIP and web applications. Example: tel:+46-70-123-4567"
+        >RFC3966 format:</strong
+      >
+      {{ phoneNumber | phoneNumber : "rfc3966" : regionCode }}
+    </p>
+  </div>
 
-  <p>
-    National format:
-    {{ phoneNumber | phoneNumber : "national" : regionCode }}
-  </p>
-
-  <p>
-    E164 Format:
-    {{ phoneNumber | phoneNumber : "e164" : regionCode }}
-  </p>
-
-  <p>
-    RFC3966 format:
-    {{ phoneNumber | phoneNumber : "rfc3966" : regionCode }}
-  </p>
+  <div class="explanation-section">
+    <h3>More About These Formats:</h3>
+    <details>
+      <summary><strong>International:</strong></summary>
+      <p>
+        Displays the number with the country code and spaces for readability
+        (e.g., +46 70 123 4567).
+      </p>
+    </details>
+    <details>
+      <summary><strong>National:</strong></summary>
+      <p>
+        Formats the number according to local conventions without the country
+        code (e.g., 070 123 4567).
+      </p>
+    </details>
+    <details>
+      <summary><strong>E164:</strong></summary>
+      <p>
+        A standardized format with the country code, used globally in
+        communications systems (e.g., +46701234567).
+      </p>
+    </details>
+    <details>
+      <summary><strong>RFC3966:</strong></summary>
+      <p>
+        A URI format for telephone numbers used in web applications and VoIP
+        (e.g., tel:+46-70-123-4567).
+      </p>
+    </details>
+  </div>
 </div>

@@ -3,12 +3,7 @@
     <label for="phoneNumber">Phone Number:</label>
     <input id="phoneNumber" formControlName="phoneNumber" />
 
-    <div
-      *ngIf="
-        phoneForm.controls['phoneNumber'].invalid &&
-        phoneForm.controls['phoneNumber'].touched
-      "
-    >
+    <div *ngIf="phoneForm.controls['phoneNumber'].invalid">
       <small *ngIf="phoneForm.controls['phoneNumber'].hasError('required')">
         Phone number is required.
       </small>
