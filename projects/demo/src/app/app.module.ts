@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipeDemoComponent } from './components/pipe-demo/pipe-demo.component';
 import { DirectiveDemoComponent } from './components/directive-demo/directive-demo.component';
 import { ValidatorDemoComponent } from './components/validator-demo/validator-demo.component';
+import { CodeSnippetModule } from 'ngx-code-snippet';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ValidatorDemoComponent } from './components/validator-demo/validator-de
     PhoneUtilsModule,
     FormsModule,
     ReactiveFormsModule,
+    CodeSnippetModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
