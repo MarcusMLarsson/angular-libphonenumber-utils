@@ -9,6 +9,7 @@ import { PipeDemoComponent } from './components/pipe-demo/pipe-demo.component';
 import { DirectiveDemoComponent } from './components/directive-demo/directive-demo.component';
 import { ValidatorDemoComponent } from './components/validator-demo/validator-demo.component';
 import { CodeSnippetModule } from 'ngx-code-snippet';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CodeSnippetModule } from 'ngx-code-snippet';
     FormsModule,
     ReactiveFormsModule,
     CodeSnippetModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { PhoneNumberService } from 'phone-utils';
-import { countryDropdownOptions } from 'phone-utils';
+import {
+  countryDropdownOptions,
+  pipeCodeSnippetHtml,
+  pipeCodeSnippetTs,
+} from 'phone-utils';
 import { RegionCode } from 'google-libphonenumber';
 
 @Component({
@@ -13,6 +17,9 @@ export class PipeDemoComponent {
   supportedRegions: RegionCode[] = [];
   regionCode: RegionCode = 'SE';
   countryDropdownOptions = countryDropdownOptions;
+  readonly pipeCodeSnippetHtml = pipeCodeSnippetHtml;
+  readonly pipeCodeSnippetTs = pipeCodeSnippetTs;
+  activeTab: 'demo' | 'ts' | 'html' = 'demo';
 
   constructor(private phoneNumberService: PhoneNumberService) {}
 

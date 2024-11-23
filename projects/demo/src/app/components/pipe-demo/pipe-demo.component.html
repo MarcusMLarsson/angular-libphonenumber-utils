@@ -1,98 +1,148 @@
 <div class="container">
   <h1>Locale-Based Phone Number Formatting</h1>
 
+  <!-- Dynamic Description (Placed above the tabs) -->
   <p class="description">
-    This demo showcases an Angular pipe that formats phone numbers using
-    google-libphonenumber. Select a region, enter a phone number, and see it
-    formatted in various styles based on the selected locale.
+    <ng-container *ngIf="activeTab === 'demo'">
+      This demo showcases an Angular pipe that formats phone numbers using
+      google-libphonenumber. Select a region, enter a phone number, and see it
+      formatted in various styles based on the selected locale.
+    </ng-container>
+
+    <ng-container *ngIf="activeTab === 'ts'">
+      This is an example of how you can structure the pipe. The pipe takes a
+      phone number and formats it in various styles based on the specified
+      region and format.
+    </ng-container>
+
+    <ng-container *ngIf="activeTab === 'html'">
+      This is how you can use the pipe in the view. You can pass the desired
+      format and region for dynamic formatting.
+    </ng-container>
   </p>
 
-  <div class="form-section">
-    <label for="region-select">Select Region:</label> <br />
-    <select id="region-select" [(ngModel)]="regionCode">
-      <option
-        *ngFor="let region of countryDropdownOptions"
-        [value]="region.value"
+  <div class="tab-container">
+    <!-- Tabs for switching -->
+    <div class="tab-buttons">
+      <button
+        (click)="activeTab = 'demo'"
+        [class.active]="activeTab === 'demo'"
       >
-        {{ region.label }}
-      </option>
-    </select>
-  </div>
+        Demo
+      </button>
 
-  <div class="form-section">
-    <label for="phone-number-input">Enter Phone Number:</label> <br />
-    <input id="phone-number-input" type="text" [(ngModel)]="phoneNumber" />
-  </div>
+      <button (click)="activeTab = 'ts'" [class.active]="activeTab === 'ts'">
+        TypeScript
+      </button>
+      <button
+        (click)="activeTab = 'html'"
+        [class.active]="activeTab === 'html'"
+      >
+        HTML
+      </button>
+    </div>
 
-  <div class="output-section">
-    <p>
-      <strong
-        title="Displays the number with country code and spaces for readability. Example: +46 70 123 4567"
-        >International format:</strong
-      >
-      {{ phoneNumber | phoneNumber : "international" : regionCode }}
-    </p>
-    <p>
-      <strong
-        title="Formats the number based on local conventions. Example: 070 123 4567"
-        >National format:</strong
-      >
-      {{ phoneNumber | phoneNumber : "national" : regionCode }}
-    </p>
-    <p>
-      <strong
-        title="A global standard with the country code. Example: +46701234567"
-        >E164 format:</strong
-      >
-      {{ phoneNumber | phoneNumber : "e164" : regionCode }}
-    </p>
-    <p>
-      <strong
-        title="URI format used in VoIP and web applications. Example: tel:+46-70-123-4567"
-        >RFC3966 format:</strong
-      >
-      {{ phoneNumber | phoneNumber : "rfc3966" : regionCode }}
-    </p>
-  </div>
+    <!-- Demo Tab Content -->
+    <div *ngIf="activeTab === 'demo'">
+      <div class="form-section">
+        <label for="region-select">Select Region:</label> <br />
+        <select id="region-select" [(ngModel)]="regionCode">
+          <option
+            *ngFor="let region of countryDropdownOptions"
+            [value]="region.value"
+          >
+            {{ region.label }}
+          </option>
+        </select>
+      </div>
 
-  <div class="explanation-section">
-    <h3>More About These Formats:</h3>
-    <details>
-      <summary><strong>International:</strong></summary>
-      <p>
-        Displays the number with the country code and spaces for readability
-        (e.g., +46 70 123 4567).
-      </p>
-    </details>
-    <details>
-      <summary><strong>National:</strong></summary>
-      <p>
-        Formats the number according to local conventions without the country
-        code (e.g., 070 123 4567).
-      </p>
-    </details>
-    <details>
-      <summary><strong>E164:</strong></summary>
-      <p>
-        A standardized format with the country code, used globally in
-        communications systems (e.g., +46701234567).
-      </p>
-    </details>
-    <details>
-      <summary><strong>RFC3966:</strong></summary>
-      <p>
-        A URI format for telephone numbers used in web applications and VoIP
-        (e.g., tel:+46-70-123-4567).
-      </p>
-    </details>
-  </div>
+      <div class="form-section">
+        <label for="phone-number-input">Enter Phone Number:</label> <br />
+        <input id="phone-number-input" type="text" [(ngModel)]="phoneNumber" />
+      </div>
 
-  <div>
-    <code-snippet
-      code="<div></div>"
-      language="typescript"
-      [showCopy]="true"
-      [showLineNumbers]="true"
-    ></code-snippet>
+      <div class="output-section">
+        <p>
+          <strong
+            title="Displays the number with country code and spaces for readability. Example: +46 70 123 4567"
+            >International format:</strong
+          >
+          {{ phoneNumber | phoneNumber : "international" : regionCode }}
+        </p>
+        <p>
+          <strong
+            title="Formats the number based on local conventions. Example: 070 123 4567"
+            >National format:</strong
+          >
+          {{ phoneNumber | phoneNumber : "national" : regionCode }}
+        </p>
+        <p>
+          <strong
+            title="A global standard with the country code. Example: +46701234567"
+            >E164 format:</strong
+          >
+          {{ phoneNumber | phoneNumber : "e164" : regionCode }}
+        </p>
+        <p>
+          <strong
+            title="URI format used in VoIP and web applications. Example: tel:+46-70-123-4567"
+            >RFC3966 format:</strong
+          >
+          {{ phoneNumber | phoneNumber : "rfc3966" : regionCode }}
+        </p>
+      </div>
+
+      <div class="explanation-section">
+        <h3>More About These Formats:</h3>
+        <details>
+          <summary><strong>International:</strong></summary>
+          <p>
+            Displays the number with the country code and spaces for readability
+            (e.g., +46 70 123 4567).
+          </p>
+        </details>
+        <details>
+          <summary><strong>National:</strong></summary>
+          <p>
+            Formats the number according to local conventions without the
+            country code (e.g., 070 123 4567).
+          </p>
+        </details>
+        <details>
+          <summary><strong>E164:</strong></summary>
+          <p>
+            A standardized format with the country code, used globally in
+            communications systems (e.g., +46701234567).
+          </p>
+        </details>
+        <details>
+          <summary><strong>RFC3966:</strong></summary>
+          <p>
+            A URI format for telephone numbers used in web applications and VoIP
+            (e.g., tel:+46-70-123-4567).
+          </p>
+        </details>
+      </div>
+    </div>
+
+    <!-- TypeScript Code Snippet -->
+    <div *ngIf="activeTab === 'ts'">
+      <code-snippet
+        [code]="pipeCodeSnippetTs"
+        [showLineNumbers]="true"
+        [showCopy]="false"
+        language="typescript"
+      ></code-snippet>
+    </div>
+
+    <!-- HTML Code Snippet -->
+    <div *ngIf="activeTab === 'html'">
+      <code-snippet
+        [code]="pipeCodeSnippetHtml"
+        [showLineNumbers]="true"
+        [showCopy]="false"
+        language="html"
+      ></code-snippet>
+    </div>
   </div>
 </div>

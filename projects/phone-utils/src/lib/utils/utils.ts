@@ -461,3 +461,52 @@ export const countryDropdownOptions = [
   { value: 'ZM', label: 'Zambia' },
   { value: 'ZW', label: 'Zimbabwe' },
 ];
+
+export const pipeCodeSnippetTs = `import { Pipe, PipeTransform } from '@angular/core';
+import {
+  PhoneNumberUtil,
+  PhoneNumberFormat,
+  RegionCode,
+  PhoneNumber,
+} from 'google-libphonenumber';
+
+@Pipe({ name: 'phoneNumber' })
+export class PhoneNumberPipe implements PipeTransform {
+  private phoneUtil = PhoneNumberUtil.getInstance();
+  transform(
+    phoneValue: number | string,
+    format: 'national' | 'international' | 'e164' | 'rfc3966' = 'national',
+    regionCode?: RegionCode
+  ): string {
+    try {
+      const phoneNumber: PhoneNumber = this.phoneUtil.parse(
+        phoneValue.toString(),
+        regionCode || 'SE'
+      );
+
+      switch (format) {
+        case 'national':
+          return this.phoneUtil.format(phoneNumber, PhoneNumberFormat.NATIONAL);
+        case 'international':
+          return this.phoneUtil.format(
+            phoneNumber,
+            PhoneNumberFormat.INTERNATIONAL
+          );
+        case 'e164':
+          return this.phoneUtil.format(phoneNumber, PhoneNumberFormat.E164);
+        case 'rfc3966':
+          return this.phoneUtil.format(phoneNumber, PhoneNumberFormat.RFC3966);
+        default:
+          return this.phoneUtil.format(phoneNumber, PhoneNumberFormat.NATIONAL);
+      }
+    } catch (error) {
+      if (phoneValue === null || phoneValue.toString().trim() === '') return '';
+      return phoneValue
+        .toString()
+        .trim()
+        .replace(/[^0-9]/g, '');
+    }
+  }
+}`;
+
+export const pipeCodeSnippetHtml = `{{ phone | phoneNumber : "international" : "US" }}`;
