@@ -10,6 +10,7 @@ import { DirectiveDemoComponent } from './components/directive-demo/directive-de
 import { ValidatorDemoComponent } from './components/validator-demo/validator-demo.component';
 import { CodeSnippetModule } from 'ngx-code-snippet';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PipeDemoComponent,
     DirectiveDemoComponent,
     ValidatorDemoComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,

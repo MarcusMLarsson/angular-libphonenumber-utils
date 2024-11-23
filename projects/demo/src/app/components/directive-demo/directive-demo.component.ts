@@ -12,7 +12,7 @@ export class DirectiveDemoComponent {
   phoneNumber = '0703359321';
   supportedRegions: string[] = [];
   regionCode!: RegionCode;
-
+  activeTab: 'demo' | 'ts' | 'html' = 'demo';
   countryDropdownOptions = countryDropdownOptions;
 
   constructor(private phoneNumberService: PhoneNumberService) {}

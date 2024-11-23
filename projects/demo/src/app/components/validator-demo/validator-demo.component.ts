@@ -14,6 +14,7 @@ export class ValidatorDemoComponent implements OnInit {
   regionCode!: RegionCode;
   supportedRegions: RegionCode[] = [];
   countryDropdownOptions = countryDropdownOptions;
+  activeTab: 'demo' | 'ts' | 'html' = 'demo';
 
   constructor(
     private fb: FormBuilder,

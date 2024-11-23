@@ -1,31 +1,91 @@
-<div>
-  <h1>Directive demo</h1>
+<div class="container">
+  <h1>Directive Demo</h1>
 
-  <p>
-    <label for="region-select">Select Region:</label> <br />
-    <select id="region-select" [(ngModel)]="regionCode">
-      <option
-        *ngFor="let region of countryDropdownOptions"
-        [value]="region.value"
+  <!-- Dynamic Description (Placed above the tabs) -->
+  <p class="description">
+    <ng-container *ngIf="activeTab === 'demo'">
+      This demo showcases an Angular directive (`czPhoneNumberDirective`) that
+      formats phone numbers dynamically as you type, based on the selected
+      region.
+    </ng-container>
+
+    <ng-container *ngIf="activeTab === 'ts'">
+      This is an example of how you can structure the directive. The
+      `czPhoneNumberDirective` formats phone numbers dynamically in the view
+      using the selected region.
+    </ng-container>
+
+    <ng-container *ngIf="activeTab === 'html'">
+      This is how you can use the `czPhoneNumberDirective` in the view. It works
+      with an input field and binds to the `regionCode` to format the phone
+      number.
+    </ng-container>
+  </p>
+
+  <div class="tab-container">
+    <!-- Tabs for switching -->
+    <div class="tab-buttons">
+      <button
+        (click)="activeTab = 'demo'"
+        [class.active]="activeTab === 'demo'"
       >
-        {{ region.label }}
-      </option>
-    </select>
-  </p>
+        Demo
+      </button>
 
-  <p>
-    <!-- Input field for typing phone number -->
-    <label for="phone-number-input">Enter Phone Number:</label>
-    <br />
-  </p>
+      <button (click)="activeTab = 'ts'" [class.active]="activeTab === 'ts'">
+        TypeScript
+      </button>
+      <button
+        (click)="activeTab = 'html'"
+        [class.active]="activeTab === 'html'"
+      >
+        HTML
+      </button>
+    </div>
 
-  <p>
-    <!--      formControlName="phone"-->
-    <input
-      czPhoneNumberDirective
-      [regionCode]="regionCode"
-      class="form-control partial-required"
-      type="text"
-    />
-  </p>
+    <!-- Demo Tab Content -->
+    <div *ngIf="activeTab === 'demo'">
+      <div class="form-section">
+        <label for="region-select">Select Region:</label> <br />
+        <select id="region-select" [(ngModel)]="regionCode">
+          <option
+            *ngFor="let region of countryDropdownOptions"
+            [value]="region.value"
+          >
+            {{ region.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-section">
+        <label for="phone-number-input">Enter Phone Number:</label> <br />
+        <input
+          czPhoneNumberDirective
+          [regionCode]="regionCode"
+          class="form-control partial-required"
+          type="text"
+        />
+      </div>
+    </div>
+
+    <!-- TypeScript Code Snippet -->
+    <div *ngIf="activeTab === 'ts'">
+      <!--<code-snippet
+        [code]="directiveCodeSnippetTs"
+        [showLineNumbers]="true"
+        [showCopy]="false"
+        language="typescript"
+      ></code-snippet> -->
+    </div>
+
+    <!-- HTML Code Snippet -->
+    <div *ngIf="activeTab === 'html'">
+      <!-- <code-snippet
+        [code]="directiveCodeSnippetHtml"
+        [showLineNumbers]="true"
+        [showCopy]="false"
+        language="html"
+      ></code-snippet> -->
+    </div>
+  </div>
 </div>

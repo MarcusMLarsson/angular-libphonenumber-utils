@@ -1,45 +1,124 @@
-<form [formGroup]="phoneForm">
-  <div>
-    <label for="phoneNumber">Phone Number:</label>
-    <input id="phoneNumber" formControlName="phoneNumber" />
+<div class="container">
+  <h1>Validator Demo</h1>
 
-    <div *ngIf="phoneForm.controls['phoneNumber'].invalid">
-      <small *ngIf="phoneForm.controls['phoneNumber'].hasError('required')">
-        Phone number is required.
-      </small>
-      <small
-        *ngIf="phoneForm.controls['phoneNumber'].hasError('invalidCountryCode')"
+  <!-- Dynamic Description (Placed above the tabs) -->
+  <p class="description">
+    <ng-container *ngIf="activeTab === 'demo'">
+      This demo showcases an Angular form that uses a custom validator
+      (`phoneNumberValidator`) to validate phone numbers. The phone number
+      format will be validated based on the selected region.
+    </ng-container>
+
+    <ng-container *ngIf="activeTab === 'ts'">
+      This is an example of how you can structure the form with a custom
+      validator. The `phoneNumberValidator` ensures that the phone number
+      entered is valid based on the selected region.
+    </ng-container>
+
+    <ng-container *ngIf="activeTab === 'html'">
+      This is how you can use the form and bind it to the phone number
+      validator. It validates the phone number as you type, based on the
+      selected region.
+    </ng-container>
+  </p>
+
+  <div class="tab-container">
+    <!-- Tabs for switching -->
+    <div class="tab-buttons">
+      <button
+        (click)="activeTab = 'demo'"
+        [class.active]="activeTab === 'demo'"
       >
-        Invalid country code.
-      </small>
-      <small *ngIf="phoneForm.controls['phoneNumber'].hasError('tooShort')">
-        Phone number is too short.
-      </small>
-      <small *ngIf="phoneForm.controls['phoneNumber'].hasError('tooLong')">
-        Phone number is too long.
-      </small>
-      <small
-        *ngIf="phoneForm.controls['phoneNumber'].hasError('phoneNumberInvalid')"
+        Demo
+      </button>
+
+      <button (click)="activeTab = 'ts'" [class.active]="activeTab === 'ts'">
+        TypeScript
+      </button>
+      <button
+        (click)="activeTab = 'html'"
+        [class.active]="activeTab === 'html'"
       >
-        Phone number is invalid.
-      </small>
+        HTML
+      </button>
+    </div>
+
+    <!-- Demo Tab Content -->
+    <div *ngIf="activeTab === 'demo'">
+      <form [formGroup]="phoneForm">
+        <div class="form-section">
+          <label for="phoneNumber">Phone Number:</label>
+          <input id="phoneNumber" formControlName="phoneNumber" />
+
+          <div *ngIf="phoneForm.controls['phoneNumber'].invalid">
+            <small
+              *ngIf="phoneForm.controls['phoneNumber'].hasError('required')"
+            >
+              Phone number is required.
+            </small>
+            <small
+              *ngIf="
+                phoneForm.controls['phoneNumber'].hasError('invalidCountryCode')
+              "
+            >
+              Invalid country code.
+            </small>
+            <small
+              *ngIf="phoneForm.controls['phoneNumber'].hasError('tooShort')"
+            >
+              Phone number is too short.
+            </small>
+            <small
+              *ngIf="phoneForm.controls['phoneNumber'].hasError('tooLong')"
+            >
+              Phone number is too long.
+            </small>
+            <small
+              *ngIf="
+                phoneForm.controls['phoneNumber'].hasError('phoneNumberInvalid')
+              "
+            >
+              Phone number is invalid.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label for="region-select">Select Region:</label><br />
+          <select
+            id="region-select"
+            formControlName="regionCode"
+            (change)="onRegionChange()"
+          >
+            <option
+              *ngFor="let region of countryDropdownOptions"
+              [value]="region.value"
+            >
+              {{ region.label }}
+            </option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <!-- TypeScript Code Snippet -->
+    <div *ngIf="activeTab === 'ts'">
+      <!-- <code-snippet
+        [code]="validatorCodeSnippetTs"
+        [showLineNumbers]="true"
+        [showCopy]="false"
+        language="typescript"
+      ></code-snippet> -->
+    </div>
+
+    <!-- HTML Code Snippet -->
+    <div *ngIf="activeTab === 'html'">
+      <!--<code-snippet
+        [code]="validatorCodeSnippetHtml"
+        [showLineNumbers]="true"
+        [showCopy]="false"
+        language="html"
+      ></code-snippet> -->
     </div>
   </div>
-
-  <!-- Region selection dropdown -->
-  <p>
-    <label for="region-select">Select Region:</label><br />
-    <select
-      id="region-select"
-      formControlName="regionCode"
-      (change)="onRegionChange()"
-    >
-      <option
-        *ngFor="let region of countryDropdownOptions"
-        [value]="region.value"
-      >
-        {{ region.label }}
-      </option>
-    </select>
-  </p>
-</form>
+</div>
