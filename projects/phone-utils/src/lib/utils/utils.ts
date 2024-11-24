@@ -1,8 +1,7 @@
-// Maps Angular's LOCALE_ID values (BCP 47 language tags) to ISO 3166-1 alpha-2 country codes,
-// allowing compatibility with google-libphonenumber for region-specific formatting and validation.
-
 import { RegionCode } from 'google-libphonenumber';
 
+// Maps Angular's LOCALE_ID values (BCP 47 language tags) to ISO 3166-1 alpha-2 country codes,
+// allowing compatibility with google-libphonenumber for region-specific formatting and validation.
 export const localeToCountryCode: { [key: string]: RegionCode } = {
   'en-AC': 'SH', // Ascension Island
   'ca-AD': 'AD', // Andorra
@@ -571,10 +570,10 @@ export class PhoneNumberDirective implements OnChanges, OnInit {
   }
 }
 `;
-export const directiveCodeSnippetHtml = `  <input
-czPhoneNumberDirective
-[regionCode]="regionCode"
-type="text"
+export const directiveCodeSnippetHtml = `<input
+  czPhoneNumberDirective
+  [regionCode]="regionCode"
+  type="text"
 />`;
 
 export const validatorCodeSnippetTs = `import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
@@ -589,7 +588,7 @@ export function phoneNumberValidator(regionCode?: RegionCode): ValidatorFn {
 
     if (!phoneNumberInput || phoneNumberInput.trim().length === 0) {
       control.markAsPristine();
-      return null;  // No validation if the input is empty.
+      return null;
     }
 
     try {
@@ -621,7 +620,7 @@ export function phoneNumberValidator(regionCode?: RegionCode): ValidatorFn {
       return { phoneNumberInvalid: true };
     }
 
-    return null;  // No errors, the phone number is valid.
+    return null;
   };
 }`;
 export const validatorCodeSnippetHtml = `<form [formGroup]="phoneForm">
