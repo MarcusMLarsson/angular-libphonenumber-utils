@@ -29,9 +29,5 @@ If you'd prefer to run the project locally, follow these steps to set it up:
    ng build phone-utils
    npm run start
    ```
-   
+    
    The app will be available at http://localhost:4200.
-
-
-###  License
-This project is licensed under the [MIT License](LICENSE).
