@@ -15,7 +15,7 @@ You have two ways to explore and use this project:
 
 ### 1. **Use the Demo Page (No Setup Required)**
 
-If you don't want to run the project locally, you can test the functionality througt [live demo page](https://angular-libphonenumber-utils.onrender.com/). The demo page allows you to test the functionality and view the underlying code.
+If you don't want to run the project locally, you can test the functionality via the demo page [live demo page](https://angular-libphonenumber-utils.onrender.com/). The demo page allows you to test the functionality and view the underlying code.
 
 ### 2. **Run Locally**
  
