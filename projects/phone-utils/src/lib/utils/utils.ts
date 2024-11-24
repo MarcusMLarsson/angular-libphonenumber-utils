@@ -552,7 +552,7 @@ export class PhoneNumberDirective implements OnChanges, OnInit {
 
       if (!input) return;
 
-      const formatter = new AsYouTypeFormatter(regionCode || 'SE');
+      const formatter = new AsYouTypeFormatter(this.regionCode || 'SE');
       let formatted = '';
 
       formatter.clear();
