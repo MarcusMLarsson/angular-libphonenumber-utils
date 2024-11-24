@@ -510,3 +510,166 @@ export class PhoneNumberPipe implements PipeTransform {
 }`;
 
 export const pipeCodeSnippetHtml = `{{ phone | phoneNumber : "international" : "US" }}`;
+
+export const directiveCodeSnippetTs = `import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  SimpleChanges,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
+import { AsYouTypeFormatter, RegionCode } from 'google-libphonenumber';
+
+@Directive({
+  selector: '[czPhoneNumberDirective]',
+})
+export class PhoneNumberDirective implements OnChanges, OnInit {
+  private debounceTimeout: any;
+  @Input() regionCode?: RegionCode;
+  rawPhoneNumber!: string;
+
+  constructor(private el: ElementRef) {}
+
+  @HostListener('input', ['$event'])
+  onInput(): void {
+    this.formatPhoneNumber();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['regionCode']) {
+      this.formatPhoneNumber();
+    }
+  }
+
+  private formatPhoneNumber(): void {
+    clearTimeout(this.debounceTimeout);
+
+    this.debounceTimeout = setTimeout(() => {
+      const inputElement = this.el.nativeElement as HTMLInputElement;
+      let rawInput = inputElement.value;
+      let input = rawInput.replace(/[^\d+]/g, '');
+
+      if (!input) return;
+
+      const formatter = new AsYouTypeFormatter(regionCode || 'SE');
+      let formatted = '';
+
+      formatter.clear();
+      for (const char of input) {
+        formatted = formatter.inputDigit(char);
+      }
+
+      inputElement.value = formatted;
+      this.rawPhoneNumber = rawInput;
+    }, 300);
+  }
+
+  ngOnInit(): void {
+    this.formatPhoneNumber();
+  }
+}
+`;
+export const directiveCodeSnippetHtml = `  <input
+czPhoneNumberDirective
+[regionCode]="regionCode"
+type="text"
+/>`;
+
+export const validatorCodeSnippetTs = `import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { PhoneNumberUtil, RegionCode, PhoneNumber, PhoneNumberFormat } from 'google-libphonenumber';
+
+export function phoneNumberValidator(regionCode?: RegionCode): ValidatorFn {
+  const phoneUtil = PhoneNumberUtil.getInstance();
+  const ValidationEnum = PhoneNumberUtil.ValidationResult;
+
+  return (control: AbstractControl): ValidationErrors | null => {
+    const phoneNumberInput = control.value;
+
+    if (!phoneNumberInput || phoneNumberInput.trim().length === 0) {
+      control.markAsPristine();
+      return null;  // No validation if the input is empty.
+    }
+
+    try {
+      // Parse the phone number without modifying the raw input.
+      const phoneNumber: PhoneNumber = phoneUtil.parseAndKeepRawInput(phoneNumberInput, regionCode || 'SE');
+      const validationResult = phoneUtil.isPossibleNumberWithReason(phoneNumber);
+
+      switch (validationResult) {
+        case ValidationEnum.INVALID_COUNTRY_CODE:
+          return { invalidCountryCode: true };
+        case ValidationEnum.TOO_SHORT:
+          return { tooShort: true };
+        case ValidationEnum.TOO_LONG:
+          return { tooLong: true };
+        case ValidationEnum.INVALID_LENGTH:
+          return { invalidLength: true };
+        case ValidationEnum.IS_POSSIBLE_LOCAL_ONLY:
+          if (!phoneUtil.isValidNumber(phoneNumber)) {
+            return { isPossibleLocalOnly: true };
+          }
+          break;
+        case ValidationEnum.IS_POSSIBLE:
+          if (!phoneUtil.isValidNumber(phoneNumber)) {
+            return { phoneNumberInvalid: true };
+          }
+          break;
+      }
+    } catch (error) {
+      return { phoneNumberInvalid: true };
+    }
+
+    return null;  // No errors, the phone number is valid.
+  };
+}`;
+export const validatorCodeSnippetHtml = `<form [formGroup]="phoneForm">
+<div class="form-section">
+  <label for="phoneNumber">Phone Number:</label>
+  <input id="phoneNumber" formControlName="phoneNumber" />
+
+  <div *ngIf="phoneForm.controls['phoneNumber'].invalid">
+    <small
+      *ngIf="phoneForm.controls['phoneNumber'].hasError('required')"
+    >
+      Phone number is required.
+    </small>
+    <small
+      *ngIf="
+        phoneForm.controls['phoneNumber'].hasError('invalidCountryCode')
+      "
+    >
+      Invalid country code.
+    </small>
+    <small
+      *ngIf="phoneForm.controls['phoneNumber'].hasError('tooShort')"
+    >
+      Phone number is too short.
+    </small>
+    <small
+      *ngIf="phoneForm.controls['phoneNumber'].hasError('tooLong')"
+    >
+      Phone number is too long.
+    </small>
+    <small
+      *ngIf="
+        phoneForm.controls['phoneNumber'].hasError('phoneNumberInvalid')
+      "
+    >
+      Phone number is invalid.
+    </small>
+  </div>
+</div>
+</form>
+
+this.phoneForm = this.fb.group({
+  phoneNumber: [
+    '',
+    [
+      Validators.required,
+      phoneNumberValidator('SE'),
+    ],
+  ],
+});
+`;

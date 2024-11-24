@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PhoneNumberService } from 'phone-utils';
 import {
+  PhoneNumberService,
   countryDropdownOptions,
   pipeCodeSnippetHtml,
   pipeCodeSnippetTs,
@@ -13,7 +13,7 @@ import { RegionCode } from 'google-libphonenumber';
   styleUrls: ['./pipe-demo.component.scss'],
 })
 export class PipeDemoComponent {
-  phoneNumber = '0703359321';
+  phoneNumber = '0705359321';
   supportedRegions: RegionCode[] = [];
   regionCode: RegionCode = 'SE';
   countryDropdownOptions = countryDropdownOptions;

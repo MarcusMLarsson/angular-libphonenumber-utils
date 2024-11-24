@@ -47,6 +47,22 @@
     <div *ngIf="activeTab === 'demo'">
       <form [formGroup]="phoneForm">
         <div class="form-section">
+          <label for="region-select">Select Region:</label><br />
+          <select
+            id="region-select"
+            formControlName="regionCode"
+            (change)="onRegionChange()"
+          >
+            <option
+              *ngFor="let region of countryDropdownOptions"
+              [value]="region.value"
+            >
+              {{ region.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-section">
           <label for="phoneNumber">Phone Number:</label>
           <input id="phoneNumber" formControlName="phoneNumber" />
 
@@ -82,43 +98,27 @@
             </small>
           </div>
         </div>
-
-        <div class="form-section">
-          <label for="region-select">Select Region:</label><br />
-          <select
-            id="region-select"
-            formControlName="regionCode"
-            (change)="onRegionChange()"
-          >
-            <option
-              *ngFor="let region of countryDropdownOptions"
-              [value]="region.value"
-            >
-              {{ region.label }}
-            </option>
-          </select>
-        </div>
       </form>
     </div>
 
     <!-- TypeScript Code Snippet -->
     <div *ngIf="activeTab === 'ts'">
-      <!-- <code-snippet
+      <code-snippet
         [code]="validatorCodeSnippetTs"
         [showLineNumbers]="true"
         [showCopy]="false"
         language="typescript"
-      ></code-snippet> -->
+      ></code-snippet>
     </div>
 
     <!-- HTML Code Snippet -->
     <div *ngIf="activeTab === 'html'">
-      <!--<code-snippet
+      <code-snippet
         [code]="validatorCodeSnippetHtml"
         [showLineNumbers]="true"
         [showCopy]="false"
         language="html"
-      ></code-snippet> -->
+      ></code-snippet>
     </div>
   </div>
   <button class="back-button" routerLink="/" routerLinkActive="active">

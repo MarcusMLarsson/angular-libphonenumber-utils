@@ -30,7 +30,6 @@ export class PhoneNumberDirective implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['regionCode']) {
-      // Ensure we reformat the existing input when region changes
       this.formatPhoneNumber();
     }
   }
@@ -40,12 +39,10 @@ export class PhoneNumberDirective implements OnChanges, OnInit {
 
     this.debounceTimeout = setTimeout(() => {
       const inputElement = this.el.nativeElement as HTMLInputElement;
-      let rawInput = inputElement.value; // This is the original input, including all special characters like '+', spaces, etc.
+      let rawInput = inputElement.value;
+      let input = rawInput.replace(/[^\d+]/g, '');
 
-      // Clean the raw input for formatting (remove non-digit characters except '+')
-      let input = rawInput.replace(/[^\d+]/g, ''); // This removes everything except digits and '+'
-
-      if (!input) return; // Exit if there's no input
+      if (!input) return;
 
       const effectiveRegionCode =
         this.regionCode || this.phoneNumberService.getDefaultRegionCode();
@@ -58,12 +55,9 @@ export class PhoneNumberDirective implements OnChanges, OnInit {
         formatted = formatter.inputDigit(char);
       }
 
-      // Now, update the input element with the formatted value
       inputElement.value = formatted;
 
-      // Optionally, you can store rawInput (the unmodified input) somewhere else for validation or processing.
-      // For example:
-      this.rawPhoneNumber = rawInput; // Store raw input for further use if necessary
+      this.rawPhoneNumber = rawInput;
     }, 300);
   }
 

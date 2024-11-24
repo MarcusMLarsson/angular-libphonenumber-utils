@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegionCode } from 'google-libphonenumber';
-import { PhoneNumberService, phoneNumberValidator } from 'phone-utils';
-import { countryDropdownOptions } from 'phone-utils';
+import {
+  countryDropdownOptions,
+  validatorCodeSnippetHtml,
+  validatorCodeSnippetTs,
+  PhoneNumberService,
+  phoneNumberValidator,
+} from 'phone-utils';
 
 @Component({
   selector: 'app-validator-demo',
@@ -11,9 +16,11 @@ import { countryDropdownOptions } from 'phone-utils';
 })
 export class ValidatorDemoComponent implements OnInit {
   phoneForm!: FormGroup;
-  regionCode!: RegionCode;
+  regionCode: RegionCode = 'SE';
   supportedRegions: RegionCode[] = [];
-  countryDropdownOptions = countryDropdownOptions;
+  readonly countryDropdownOptions = countryDropdownOptions;
+  readonly validatorCodeSnippetHtml = validatorCodeSnippetHtml;
+  readonly validatorCodeSnippetTs = validatorCodeSnippetTs;
   activeTab: 'demo' | 'ts' | 'html' = 'demo';
 
   constructor(
@@ -22,10 +29,8 @@ export class ValidatorDemoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Fetch supported regions (adjust this to match how you get the supported regions)
     this.supportedRegions = this.phoneNumberService.getSupportedRegions();
 
-    // Initialize the form
     this.phoneForm = this.fb.group({
       phoneNumber: [
         '',
@@ -34,16 +39,13 @@ export class ValidatorDemoComponent implements OnInit {
           phoneNumberValidator(this.phoneNumberService, this.regionCode),
         ],
       ],
-      regionCode: ['US'],
+      regionCode: ['SE'],
     });
   }
 
-  // Dynamically set region code and update the validator
   onRegionChange(): void {
     const region = this.phoneForm.get('regionCode')?.value;
     this.regionCode = region;
-    console.log(this.regionCode);
-    // Update the validator when the region code is changed
     this.phoneForm.controls['phoneNumber'].setValidators([
       Validators.required,
       phoneNumberValidator(this.phoneNumberService, this.regionCode),

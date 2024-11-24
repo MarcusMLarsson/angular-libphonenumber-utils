@@ -107,12 +107,12 @@ input:focus {
 }
 
 .tab-buttons button.active {
-  color: #007bff; /* Active tab color */
+  color: #007bff;
   font-weight: bold;
 }
 
 .tab-buttons button:hover {
-  color: #007bff; /* Hover color */
+  color: #007bff;
 }
 
 code-snippet {
@@ -124,16 +124,16 @@ code-snippet {
   padding: 15px 0px 15px 0px;
   font-size: 15px;
   font-weight: 600;
-  color: #4a90e2; /* Text color */
-  border: 1px solid #4a90e2; /* Blue border */
-  background-color: transparent; /* Transparent background */
-  border-radius: 20px; /* Soft rounded corners */
+  color: #4a90e2;
+  border: 1px solid #4a90e2;
+  background-color: transparent;
+  border-radius: 20px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 125px;
   text-transform: uppercase;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for button depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .back-button:hover {

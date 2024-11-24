@@ -6,7 +6,8 @@
     <ng-container *ngIf="activeTab === 'demo'">
       This demo showcases an Angular directive (`czPhoneNumberDirective`) that
       formats phone numbers dynamically as you type, based on the selected
-      region.
+      region. Keep in mind that invalid phone numbers may not be formatted
+      correctly.
     </ng-container>
 
     <ng-container *ngIf="activeTab === 'ts'">
@@ -62,6 +63,7 @@
         <input
           czPhoneNumberDirective
           [regionCode]="regionCode"
+          [value]="phoneNumber"
           class="form-control partial-required"
           type="text"
         />
@@ -70,22 +72,22 @@
 
     <!-- TypeScript Code Snippet -->
     <div *ngIf="activeTab === 'ts'">
-      <!--<code-snippet
+      <code-snippet
         [code]="directiveCodeSnippetTs"
         [showLineNumbers]="true"
         [showCopy]="false"
         language="typescript"
-      ></code-snippet> -->
+      ></code-snippet>
     </div>
 
     <!-- HTML Code Snippet -->
     <div *ngIf="activeTab === 'html'">
-      <!-- <code-snippet
+      <code-snippet
         [code]="directiveCodeSnippetHtml"
         [showLineNumbers]="true"
         [showCopy]="false"
         language="html"
-      ></code-snippet> -->
+      ></code-snippet>
     </div>
   </div>
   <button class="back-button" routerLink="/" routerLinkActive="active">

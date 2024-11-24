@@ -4,9 +4,10 @@
   <!-- Dynamic Description (Placed above the tabs) -->
   <p class="description">
     <ng-container *ngIf="activeTab === 'demo'">
-      This demo showcases an Angular pipe that formats phone numbers using
-      google-libphonenumber. Select a region, enter a phone number, and see it
-      formatted in various styles based on the selected locale.
+      This demo showcases an Angular pipe (`phoneNumber'`) that formats phone
+      numbers using google-libphonenumber. Select a region, enter a valid phone
+      number, and see it formatted in various styles based on the selected
+      locale. Invalid phone numbers may not be formatted correctly.
     </ng-container>
 
     <ng-container *ngIf="activeTab === 'ts'">

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { PhoneNumberService } from 'phone-utils';
-import { countryDropdownOptions } from 'phone-utils';
+import {
+  countryDropdownOptions,
+  directiveCodeSnippetHtml,
+  directiveCodeSnippetTs,
+  PhoneNumberService,
+} from 'phone-utils';
 import { RegionCode } from 'google-libphonenumber';
 
 @Component({
@@ -9,11 +13,13 @@ import { RegionCode } from 'google-libphonenumber';
   styleUrls: ['./directive-demo.component.scss'],
 })
 export class DirectiveDemoComponent {
-  phoneNumber = '0703359321';
+  phoneNumber = '0705359321';
   supportedRegions: string[] = [];
-  regionCode!: RegionCode;
+  regionCode: RegionCode = 'SE';
   activeTab: 'demo' | 'ts' | 'html' = 'demo';
-  countryDropdownOptions = countryDropdownOptions;
+  readonly countryDropdownOptions = countryDropdownOptions;
+  readonly directiveCodeSnippetHtml = directiveCodeSnippetHtml;
+  readonly directiveCodeSnippetTs = directiveCodeSnippetTs;
 
   constructor(private phoneNumberService: PhoneNumberService) {}
 
